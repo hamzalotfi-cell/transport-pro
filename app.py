@@ -1,87 +1,139 @@
 """
-TransportPro — Application principale
-Outil de gestion financiere pour les transporteurs routiers.
+TransportCost Pro - Application principale
 """
-
 import streamlit as st
 
-st.set_page_config(
-    page_title="TransportPro",
-    page_icon="🚛",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+st.set_page_config(page_title="TransportCost Pro", page_icon="🚛", layout="wide", initial_sidebar_state="expanded")
 
-st.markdown(
-    """
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-        .stApp { font-family: 'DM Sans', sans-serif; }
-        html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
-        [data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #0a0f1a 0%, #111827 100%);
-            border-right: 1px solid rgba(30, 58, 95, 0.5);
-        }
-        [data-testid="stMetricValue"] {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.7rem; font-weight: 600; letter-spacing: -0.02em;
-        }
-        [data-testid="stMetricLabel"] {
-            font-size: 0.78rem; text-transform: uppercase;
-            letter-spacing: 0.06em; color: #8899aa !important;
-        }
-        div[data-testid="metric-container"] {
-            background: rgba(17, 24, 39, 0.6);
-            border: 1px solid rgba(30, 58, 95, 0.4);
-            border-radius: 8px; padding: 1rem 1.2rem;
-        }
-        .stFormSubmitButton > button {
-            background: linear-gradient(135deg, #1B6EC2 0%, #1557a0 100%);
-            color: white; font-family: 'DM Sans', sans-serif;
-            font-size: 0.95rem; font-weight: 600;
-            padding: 0.65rem 2rem; border: none; border-radius: 6px;
-        }
-        .stFormSubmitButton > button:hover {
-            background: linear-gradient(135deg, #1557a0 0%, #0e4a8a 100%);
-            box-shadow: 0 4px 12px rgba(27, 110, 194, 0.3);
-        }
-        .stNumberInput > div > div > input {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
-        }
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        .block-container { padding-top: 1.5rem; max-width: 1200px; }
-        hr { border-color: rgba(30, 58, 95, 0.3); }
-        .brand-name { font-family: 'DM Sans', sans-serif; font-size: 1.5rem; font-weight: 700; color: #e2e8f0; letter-spacing: -0.03em; }
-        .brand-name span { color: #1B6EC2; }
-        .section-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: #64748b; font-weight: 600; margin-bottom: 0.5rem; }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    .stApp { font-family: 'DM Sans', sans-serif; }
+    html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0a1225 0%, #0f1d33 100%);
+        border-right: 1px solid rgba(77,163,255,0.15);
+    }
+    [data-testid="stMetricValue"] {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.7rem; font-weight: 600;
+    }
+    [data-testid="stMetricLabel"] {
+        font-size: 0.78rem; text-transform: uppercase;
+        letter-spacing: 0.06em; color: #8899aa !important;
+    }
+    div[data-testid="metric-container"] {
+        background: rgba(15, 30, 55, 0.6);
+        border: 1px solid rgba(77,163,255,0.15);
+        border-radius: 8px; padding: 1rem 1.2rem;
+    }
+    .stFormSubmitButton > button {
+        background: linear-gradient(135deg, #1B6EC2 0%, #2980d9 100%);
+        color: white; font-family: 'DM Sans', sans-serif;
+        font-size: 0.95rem; font-weight: 600;
+        padding: 0.65rem 2rem; border: none; border-radius: 8px;
+    }
+    .stFormSubmitButton > button:hover {
+        background: linear-gradient(135deg, #2980d9 0%, #3498db 100%);
+        box-shadow: 0 4px 15px rgba(27, 110, 194, 0.3);
+    }
+    .stNumberInput > div > div > input {
+        font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+    }
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    .block-container { padding-top: 1.5rem; max-width: 1200px; }
+    hr { border-color: rgba(30, 58, 95, 0.3); }
+    .brand-name { font-family: 'DM Sans', sans-serif; font-size: 1.5rem; font-weight: 700; color: #e2e8f0; letter-spacing: -0.03em; }
+    .brand-name span { color: #5cb8ff; }
+    .section-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: #64748b; font-weight: 600; margin-bottom: 0.5rem; }
+
+    /* NAV BUTTONS */
+    .nav-btn {
+        display: block;
+        width: 100%;
+        padding: 0.9rem 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: 1px solid transparent;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .nav-btn::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 8px;
+    }
+    .nav-btn-content {
+        position: relative;
+        z-index: 1;
+    }
+    .nav-btn-title {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #e2e8f0;
+    }
+    .nav-btn-desc {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        margin-top: 0.15rem;
+    }
+    .nav-btn-active {
+        border-color: rgba(77,163,255,0.4) !important;
+        background-color: rgba(27,110,194,0.12) !important;
+    }
+    .nav-btn-active .nav-btn-title { color: #5cb8ff; }
+</style>
+""", unsafe_allow_html=True)
+
+# Navigation state
+if "nav_page" not in st.session_state:
+    st.session_state["nav_page"] = "Accueil"
 
 with st.sidebar:
-    st.markdown('<div style="text-align:center;padding:1.2rem 0;"><div class="brand-name">Transport<span>Pro</span></div><div style="width:40px;height:2px;background:#1B6EC2;margin:0.8rem auto;"></div><div style="font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:0.15em;">Gestion financiere transport</div></div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align:center;padding:1.2rem 0;"><div class="brand-name">Transport<span>Cost</span> Pro</div><div style="width:40px;height:2px;background:#5cb8ff;margin:0.8rem auto;"></div><div style="font-size:0.68rem;color:#64748b;text-transform:uppercase;letter-spacing:0.15em;">Simulateur de rentabilite transport</div></div>', unsafe_allow_html=True)
+    st.markdown("<div style='height:0.5rem;'></div>", unsafe_allow_html=True)
+
+    pages = {
+        "Accueil": ("Accueil", "Presentation de l outil"),
+        "Calculateur Cout/km": ("Calculateur Cout/km", "Cout reel par kilometre"),
+        "Rentabilite Tournees": ("Rentabilite Tournees", "Marge par mission"),
+        "Dashboard Financier": ("Dashboard Financier", "Sante de l entreprise"),
+    }
+
+    for key, (title, desc) in pages.items():
+        is_active = st.session_state["nav_page"] == key
+        if st.button(
+            f"{title}",
+            key=f"nav_{key}",
+            use_container_width=True,
+            type="primary" if is_active else "secondary",
+        ):
+            st.session_state["nav_page"] = key
+            st.rerun()
+
     st.divider()
-    page = st.radio("Nav", ["Accueil", "Calculateur Cout/km", "Rentabilite Tournees", "Dashboard Financier"], label_visibility="collapsed")
-    st.divider()
+
     if "resultat_km" in st.session_state:
         r = st.session_state["resultat_km"]
         st.markdown(f'<div style="padding:0.5rem 0;font-family:JetBrains Mono,monospace;"><div style="color:#2ecc71;font-size:0.72rem;font-weight:600;">VEHICULE CONFIGURE</div><div style="color:#94a3b8;font-size:0.75rem;margin-top:0.4rem;">COUT REEL / KM</div><div style="color:#e2e8f0;font-size:1.1rem;font-weight:600;">{r.cout_km_reel:.3f} EUR</div></div>', unsafe_allow_html=True)
-    st.markdown('<div style="position:fixed;bottom:1rem;font-size:0.68rem;color:#475569;font-family:JetBrains Mono,monospace;">v0.2.0</div>', unsafe_allow_html=True)
+
+    st.markdown('<div style="position:fixed;bottom:1rem;font-size:0.68rem;color:#475569;font-family:JetBrains Mono,monospace;">v1.0</div>', unsafe_allow_html=True)
+
+# Routing
+page = st.session_state["nav_page"]
 
 if page == "Accueil":
-    st.markdown('<div style="padding:3rem 0 1rem;text-align:center;"><div class="brand-name" style="font-size:2.5rem;">Transport<span>Pro</span></div><div style="color:#64748b;font-size:1.05rem;margin-top:0.8rem;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;">Maitrisez vos couts. Pilotez vos marges.<br>L outil financier concu pour les transporteurs routiers.</div></div>', unsafe_allow_html=True)
-    st.markdown("<div style='height:2rem;'></div>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns(3, gap="large")
-    with col1:
-        st.markdown('<div style="border:1px solid rgba(30,58,95,0.4);border-radius:8px;padding:1.8rem;background:rgba(17,24,39,0.4);"><div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:#2ecc71;font-weight:600;margin-bottom:0.8rem;">Gratuit</div><div style="font-size:1.15rem;font-weight:700;color:#e2e8f0;margin-bottom:0.8rem;">Calculateur Cout/km</div><div style="font-size:0.85rem;color:#94a3b8;line-height:1.6;">Calculez votre cout reel au kilometre avec la methode trinome du CNR.</div></div>', unsafe_allow_html=True)
-    with col2:
-        st.markdown('<div style="border:1px solid rgba(30,58,95,0.4);border-radius:8px;padding:1.8rem;background:rgba(17,24,39,0.4);"><div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:#1B6EC2;font-weight:600;margin-bottom:0.8rem;">Essentiel - 29 EUR/mois</div><div style="font-size:1.15rem;font-weight:700;color:#e2e8f0;margin-bottom:0.8rem;">Rentabilite Tournees</div><div style="font-size:0.85rem;color:#94a3b8;line-height:1.6;">Analysez chaque tournee et calculez vos marges.</div><div style="font-size:0.75rem;color:#475569;margin-top:0.8rem;font-style:italic;">Bientot disponible</div></div>', unsafe_allow_html=True)
-    with col3:
-        st.markdown('<div style="border:1px solid rgba(30,58,95,0.4);border-radius:8px;padding:1.8rem;background:rgba(17,24,39,0.4);"><div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:#e67e22;font-weight:600;margin-bottom:0.8rem;">Pro - 49 EUR/mois</div><div style="font-size:1.15rem;font-weight:700;color:#e2e8f0;margin-bottom:0.8rem;">Dashboard Financier</div><div style="font-size:0.85rem;color:#94a3b8;line-height:1.6;">FRNG, BFR, tresorerie nette et alertes automatiques.</div><div style="font-size:0.75rem;color:#475569;margin-top:0.8rem;font-style:italic;">Bientot disponible</div></div>', unsafe_allow_html=True)
-
+    from modules.landing import afficher_landing
+    afficher_landing()
 elif page == "Calculateur Cout/km":
     from modules.calculateur import afficher_calculateur
     afficher_calculateur()
